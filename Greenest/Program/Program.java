@@ -21,43 +21,31 @@ public class Program {
         // Lägger in i Arraylist
         List<Växter> plantList = Arrays.asList(v1, v2, v3, v4);
 
-        boolean run = true; // Loop startas medan run = true
+        // Loop startas medan run = true
+        boolean run = true;
         while (run) {
-            var waterThisPlant = Message.waterWhatPlant();
-            if (waterThisPlant == null) {
+            String plantName = Message.waterWhatPlant(); // Kallar metoden waterWhatPlant och sätter värdet i plantName.
+
+            if (plantName == null) { // Ifall knappen cancel trycks, avlutas programmet.
                 Message.exitMessage();
                 break;
             }
 
-
+            // Letar igenom plantList efter en matchning på namnet. ifall den hittar blir hittat = true.
             boolean hittat = false;
-            for (Växter element : plantList) { // Om waterWhatPlant innehåller ett namn som finns i arraylist, returnera vattnaMedVad.
-                if (element.getNamn().toLowerCase().equals(waterThisPlant)) {
+            for (Växter element : plantList) {
+
+                // Om det blir matchning, kalla på metoden vattnaMedVad.
+                if (element.getNamn().toLowerCase().equals(plantName)) {
                     element.vattnaMedVad();
                     hittat = true;
-
-                    // kan vi koda in i message?
-                    if (Message.tryAgain() != 0) { // Om användare trycker avbryt eller cancel, avbryts programmet.
-                        Message.exitMessage();
-                        run=false; // Bryter while loop och låter program avslutas
-                    }
+                    run = Message.tryAgain(); // om kund avbryter returneras en boolean som stänger loop.
                 }
-
-
             }
-
-            if (!hittat) { // Om namnet inte hittas bland växter får användare chans att försöka igen eller avbryta.
+            if (!hittat) { // Om namnet inte hittats i plantList får användare chans att försöka igen eller avbryta.
                 Message.nameNotFound();
-                // kan vi koda in i message?
-                if (Message.tryAgain() != 0) { // Om användare trycker avbryt eller cancel, avbryts programmet.
-                    Message.exitMessage();
-                    run=false; // Bryter while loop och låter program avslutas
-                }
+                run = Message.tryAgain();
             }
-
-
         }
     }
-
-
 }

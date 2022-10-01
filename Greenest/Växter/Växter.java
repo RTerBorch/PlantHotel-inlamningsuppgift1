@@ -16,7 +16,7 @@ public abstract class Växter implements Message {
     String näring; // Typ av näring växt behöver
 
     public void vattnaMedVad() {
-        JOptionPane.showMessageDialog(null,getNamn() + " ska vattnas med " + getDosering() + "L " + getNäring());
+        JOptionPane.showMessageDialog(null, getNamn() + " ska vattnas med " + getDosering() + "L " + getNäring());
     }
 
 
